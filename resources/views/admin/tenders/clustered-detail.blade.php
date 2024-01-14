@@ -33,12 +33,74 @@
                         <input type="hidden" name="tender_id" value="{{ Request::segment(3) }}" autocomplete="off"> 
                         
                         <div class="tender-status">
-                            <a class="btn add-cluster" data-bs-toggle="modal" data-bs-target="#cluster-modal">Add Cluster</a> 
-                            <a class="btn add-delivery-point" data-bs-toggle="modal" data-bs-target="#delivery-point-modal">Add Delivery Point</a> 
+                            <a class="btn add-cluster" data-bs-toggle="collapse" data-bs-target="#cluster-modal">Add Cluster</a> 
+                            <a class="btn add-delivery-point" data-bs-toggle="collapse" data-bs-target="#delivery-point-modal">Add Delivery Point</a> 
                             <button class="btn publish" type="submit">Publish</button>
                         </div>
                     </form>
-                </div> 
+                </div>
+                
+                <div class="collapse" id="cluster-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                   
+                        
+                            <form id="form-data" method="post" enctype="multipart/form-data">
+                                @csrf
+                                <input type="hidden" name="tender_id" value="{{ Request::segment(3) }}" autocomplete="off">
+                                <table class="app-table main-border-bottom">
+                                    <thead class="header">
+                                        <tr>
+                                            <td colspan="2">1. Define Cluster</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Cluster Name</td>
+                                            <td>Quota</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input type="text" class="form-control" id="cluster_name" name="cluster_name" placeholder=""></td>
+                                            <td><input type="text" class="form-control number-format" id="cluster_quota" name="cluster_quota" placeholder="0.00"></td>    
+                                        </tr>
+                                    </tbody>
+                                </table>  
+                                <div id="response" class="alert alert-danger mt-3" role="alert" style="display:none; ">Nilai yang di input tidak boleh lebih dari Cluster Quota</div>
+                                <table id="choose-delivery-point" class="app-table main-border-bottom mt-2">
+                                    <thead class="header">
+                                        <tr>
+                                            <td colspan="3">2. Choose Delivery Point</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">
+                                                <select name="select-delivery-point" class="form-select" id="select-delivery-point">
+                                                <option value="">Select Delivery Point</option>
+                                            
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr> 
+                                            <td>Delivery Point</td>
+                                            <td>Quota</td>
+                                            <td width="20%">Action</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>   
+                                    </tbody>
+                                    <tfoot class="footer">
+                                        <tr>
+                                            <td colspan="2">Total</td>
+                                            <td class="total-cluster"></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </form>
+                            <div class="mb-2 text-end">
+                                <button type="button" class="btn btn-primary mt-2" onclick="Clustered.storeCluster(event)">Add Cluster</button>
+                            </div>
+                            
+                            
+                    
+                            
+                </div>
                 <input type="hidden" id="method" name="method" value="{{ Session::get('method') }}"/>            
                 <table id="data-detail" class="app-table main-border-bottom">
                     <thead class="header">
@@ -114,73 +176,8 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="cluster-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add CLuster</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-            <form id="form-data" method="post" enctype="multipart/form-data">
-                @csrf
-                <input type="hidden" name="tender_id" value="{{ Request::segment(3) }}" autocomplete="off">
-                <table class="app-table main-border-bottom">
-                    <thead class="header">
-                        <tr>
-                            <td colspan="2">1. Define Cluster</td>
-                        </tr>
-                        <tr>
-                            <td>Cluster Name</td>
-                            <td>Quota</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><input type="text" class="form-control" id="cluster_name" name="cluster_name" placeholder=""></td>
-                            <td><input type="text" class="form-control number-format" id="cluster_quota" name="cluster_quota" placeholder="0.00"></td>    
-                        </tr>
-                    </tbody>
-                </table>  
-                <div id="response" class="alert alert-danger mt-3" role="alert" style="display:none; ">Nilai yang di input tidak boleh lebih dari Cluster Quota</div>
-                <table id="choose-delivery-point" class="app-table main-border-bottom mt-3">
-                    <thead class="header">
-                        <tr>
-                            <td colspan="3">2. Choose Delivery Point</td>
-                        </tr>
-                        <tr>
-                            <td colspan="3">
-                                <select name="select-delivery-point" class="form-select" id="select-delivery-point">
-                                <option value="">Select Delivery Point</option>
-                            
-                                </select>
-                            </td>
-                        </tr>
-                        <tr> 
-                            <td>Delivery Point</td>
-                            <td>Quota</td>
-                            <td width="20%">Action</td>
-                        </tr>
-                    </thead>
-                    <tbody>   
-                    </tbody>
-                    <tfoot class="footer">
-                        <tr>
-                            <td colspan="2">Total</td>
-                            <td class="total-cluster"></td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </form>
-        </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="Clustered.storeCluster(event)">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="modal fade" id="delivery-point-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+<div class="collapse" id="delivery-point-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
