@@ -16,7 +16,7 @@
             <div class="col-2">
                 <ul class="list-group">
                     <li class="list-group-item"><a href="{{ url('tenders') }}">Tenders</a></li>
-                    <li class="list-group-item main-border-bottom"><a href="{{ url('tenders/create') }}">Create New Tender</a></li>
+                    
                     
                 </ul>
             </div>

@@ -18,9 +18,9 @@
                 <ul class="list-group">
                     <li class="list-group-item"><a href="{{ url('tenders') }}">Tenders</a></li>
                     
-                    <li class="list-group-item"><a href="{{ url('tenders/create') }}">Create New Tender</a></li>
-                    <li class="list-group-item"><a href="javascript:void(0); " data-bs-toggle="modal" data-bs-target="#cluster-modal">Add Cluster</a></li>
-                    <li class="list-group-item"><a href="javascript:void(0); " data-bs-toggle="modal" data-bs-target="#delivery-point-modal">Add Delivery Point</a></li>
+                    
+                    <!--li class="list-group-item"><a href="javascript:void(0); " data-bs-toggle="modal" data-bs-target="#cluster-modal">Add Cluster</a></li>
+                    <li class="list-group-item"><a href="javascript:void(0); " data-bs-toggle="modal" data-bs-target="#delivery-point-modal">Add Delivery Point</a></li-->
                     <li class="list-group-item main-border-bottom"><a href="{{ url('tenders/view_submissions/'.Request::segment(3)) }}">View Submissions</a></li>
                     
                 </ul>
@@ -31,7 +31,8 @@
                     <form action="{{ url('tenders/publish') }}" method="post">
                         @csrf
                         <input type="hidden" name="tender_id" value="{{ Request::segment(3) }}" autocomplete="off"> 
-                        <div class="tender-status"><button class="btn btn-primary" type="submit">Publish</button></div>
+                        
+                        <div class="tender-status"><a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cluster-modal">Add Cluster</a> <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#delivery-point-modal">Add Delivery Point</a> <button class="btn btn-primary" type="submit">Publish</button></div>
                     </form>
                 </div> 
                 <input type="hidden" id="method" name="method" value="{{ Session::get('method') }}"/>            
