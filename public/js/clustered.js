@@ -41,11 +41,17 @@ const Clustered = (function() {
         });
 
         if(response.is_having_cluster == 'no' && response.is_having_delivery_point == 'no'){
+          $(".add-cluster").addClass('btn-primary');
+          $(".add-delivery-point").addClass('btn-secondary disabled');
+          $(".publish").addClass('btn-secondary disabled');
+        }else if(response.is_having_cluster == 'yes' && response.is_having_delivery_point == 'no'){
+          $(".add-cluster").removeClass('btn-primary').addClass('btn-secondary disabled');
+          $(".add-delivery-point").removeClass('btn-secondary disabled').addClass('btn-primary');
+          $(".publish").addClass('btn-secondary disabled');
+        }else{
           $(".add-cluster").removeClass('btn-primary').addClass('btn-secondary disabled');
           $(".add-delivery-point").removeClass('btn-primary').addClass('btn-secondary disabled');
-          $(".publish").removeClass('btn-primary').addClass('btn-secondary disabled');
-        }else if(response.is_having_cluster == 'yes' && response.is_having_delivery_point == 'no'){
-
+          $(".publish").removeClass('btn-secondary disabled').addClass('btn-primary');
         }
 
 
