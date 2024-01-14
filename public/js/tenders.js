@@ -34,6 +34,7 @@ const App = (function() {
         if(response.length > 0){
           let i = 1;
           $.each(response, function(index, item) {
+              
               $("#data-list tbody").append('<tr><td>'+i+'</td><td>'+item.tender_number+'</td><td>'+item.method+'</td><td>'+formatNumber(item.bbn_quota)+'</td><td>'+item.date_start+'</td><td>'+item.date_end+'</td><td><a href="'+base_url+'/tenders/view/'+item.tender_id+'" class="btn button-green">Open</a></td></tr>');
             i++;
           })

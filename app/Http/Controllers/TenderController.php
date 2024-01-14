@@ -253,6 +253,7 @@ class TenderController extends Controller
 
     public function show(){
         $data = Tender::where('method', Session::get('method'))->get();
+        
         return response()->json($data);
     }
 
@@ -286,8 +287,41 @@ class TenderController extends Controller
        
         }
 
+        if($data->method == 'clustered'){
+            $data['is_having_cluster'] = $this->checkIfTenderHasCluster($tender_id);
+            $data['is_having_delivery_point'] = $this->checkIfTenderHasDeliveryPoint($tender_id);
+        }
+
        
         return response()->json($data); 
+    }
+
+    public function checkIfTenderHasCluster($tender_id){
+        $data = Cluster::where([
+            'tender_id' => $tender_id
+         ])->first();
+        
+
+         if($data){
+            return 'yes';
+         }else{
+            return 'no';
+         }
+        
+    }
+
+    public function checkIfTenderHasDeliveryPoint($tender_id){
+        $data = ScatteredTender::where([
+            'tender_id' => $tender_id
+         ])->first();
+        
+
+         if($data){
+            return 'yes';
+         }else{
+            return 'no';
+         }
+        
     }
 
     public function getTenderLogs($tender_id){

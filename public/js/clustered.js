@@ -40,7 +40,13 @@ const Clustered = (function() {
     
         });
 
-        
+        if(response.is_having_cluster == 'no' && response.is_having_delivery_point == 'no'){
+          $(".add-cluster").removeClass('btn-primary').addClass('btn-secondary disabled');
+          $(".add-delivery-point").removeClass('btn-primary').addClass('btn-secondary disabled');
+          $(".publish").removeClass('btn-primary').addClass('btn-secondary disabled');
+        }else if(response.is_having_cluster == 'yes' && response.is_having_delivery_point == 'no'){
+
+        }
 
 
         if(response.status != "New"){

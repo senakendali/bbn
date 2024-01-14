@@ -32,7 +32,11 @@
                         @csrf
                         <input type="hidden" name="tender_id" value="{{ Request::segment(3) }}" autocomplete="off"> 
                         
-                        <div class="tender-status"><a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cluster-modal">Add Cluster</a> <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#delivery-point-modal">Add Delivery Point</a> <button class="btn btn-primary" type="submit">Publish</button></div>
+                        <div class="tender-status">
+                            <a class="btn btn-primary add-cluster" data-bs-toggle="modal" data-bs-target="#cluster-modal">Add Cluster</a> 
+                            <a class="btn btn-secondary add-delivery-point disabled" data-bs-toggle="modal" data-bs-target="#delivery-point-modal">Add Delivery Point</a> 
+                            <button class="btn btn-secondary publish disabled" type="submit">Publish</button>
+                        </div>
                     </form>
                 </div> 
                 <input type="hidden" id="method" name="method" value="{{ Session::get('method') }}"/>            
