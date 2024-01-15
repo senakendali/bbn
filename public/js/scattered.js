@@ -178,21 +178,7 @@ const Scattered = (function() {
           case "view":
               getDetail();
               showDeliveryPointByTender();
-              /*$.ajax({
-                type: 'GET',
-                dataType:"json",
-                url: base_url+'/tenders/showDeliveryPointByTender/'+tender_id,
-                success: function (response) {
-                  let i = 1;
-                  let total_quota = 0;
-                  $.each(response, function(index, item) {
-                    $("#delivery-point tbody").append('<tr class="border-bottom"><td>'+i+'</td><td><input type="hidden" name="delivery_point_id[]" value="'+item.id+'"/>'+item.delivery_point+'</td><td>'+App.formatNumber(item.bbn_quota)+'</td></tr>');
-                    total_quota += item.bbn_quota;
-                    i++;
-                  })
-                  $("#delivery-point tfoot").append('<tr><td colspan="2">Total</td><td>'+App.formatNumber(total_quota)+'</td></tr>');
-                }
-              });*/
+              
               break;
     
         }

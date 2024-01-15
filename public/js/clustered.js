@@ -16,7 +16,7 @@ const Clustered = (function() {
         
         $("#data-detail tbody").append('<tr><td>'+response.tender_number+'</td><td>'+response.status+'</td><td>'+response.year+'</td><td class="national_quota">'+App.formatNumber(response.bbn_quota)+'</td></tr>');
         $("#data-detail").append('<tfoot class="footer"><tr><td colspan="3" class="text-end">Total</td><td>'+App.formatNumber(response.bbn_quota)+'</td></tr></tfoot>');
-        
+        $(".quota").html(App.formatNumber(response.bbn_quota));
         $( "#cluster_quota" ).on( "change", function() {
           
       
@@ -101,21 +101,28 @@ const Clustered = (function() {
               let cluster_quota = (cluster_name != item.name ? item.quota : '');
               $("#clusters-table tbody").append('<tr class="border-bottom"><td>'+name+'</td><td class="text-end">'+App.formatNumber(cluster_quota)+'</td><td>'+item.delivery_point+'</td><td>'+App.formatNumber(item.bbn_quota)+'</td><!--td><button id="'+item.id+'" type="button" class="btn btn-outline-success view">Show Delivery Point</button></td--!></tr>');
              
-              
-              
               cluster_name = item.name;
               total += item.bbn_quota;
-
-              
-              
+  
               i++;
           })
 
           $("#clusters-table tfoot").append(`
           <tr>
                   <td colspan="3">Total</td>
-                  <td>`+App.formatNumber(total)+`</td>
+                  <td class="total-all-cluster">`+App.formatNumber(total)+`</td>
               </tr>`);
+
+          var total_cluster = $(".total-all-cluster").html().split(",").join("");
+          $(".total-in").html(App.formatNumber(total_cluster));
+
+          var bbn_quota = $(".quota").html().split(",").join("");
+          var total_in = $(".total-in").html().split(",").join("");
+        
+      
+          $(".difference").html(App.formatNumber(bbn_quota-total_in));
+         
+        
         }else{
           $("#clusters-table tbody").append('<tr><td colspan="4" class="text-center">There is no data to be displayed.</td></tr>');
         }
@@ -195,13 +202,21 @@ const Clustered = (function() {
           $(this).val(App.formatNumber($(this).val()));
         });
 
+        var total_in = parseInt($(".total-in").html().split(",").join(""));
+
         $( ".d-quota" ).on( "keydown keyup", function() {
-          var sum = 0;
-          var bbn_quota = $("#bbn_quota").val().split(",").join("");
-          //iterate through each textboxes and add the values
+         
+         
+
+          var sum = total_in;
+          var bbn_quota = $(".quota").html().split(",").join("");
+          
+         
+          
           $(".d-quota").each(function() {
               var quota = this.value.split(",").join("");
-              //add only if the value is number
+              
+              
               if (!isNaN(quota) && quota.length != 0) {
                   sum += parseFloat(quota);
                   $(this).css("background-color", "#FEFFB0");
@@ -210,9 +225,35 @@ const Clustered = (function() {
                   $(this).css("background-color", "red");
               }
           });
+          
           $(".total-in").html(App.formatNumber(sum));
           $(".difference").html(App.formatNumber(bbn_quota-sum));
         });
+
+        $( ".d-quota" ).on( "change", function() {
+          var bbn_quota = $(".quota").html().split(",").join("");
+          var quota = this.value.split(",").join("");
+          let sum =  $(".total-in").html().split(",").join("");
+          
+          if(parseInt(sum) > parseInt(bbn_quota)){
+            
+            $(this).css("background-color", "red");
+            $("#warning-message").html('Nilai yang di input tidak boleh lebih dari Quota Nasional');
+            var myModal = new bootstrap.Modal(document.getElementById('warning-modal'), {})
+            myModal.show()
+            sum -= (sum - this.value.split(",").join(""));
+            
+          }
+
+          /*if(sum > bbn_quota){
+            var myModal = new bootstrap.Modal(document.getElementById('warning-modal'), {})
+            myModal.show() 
+          }*/
+
+          
+
+        });
+
       }
     });
   };
@@ -344,6 +385,41 @@ const Clustered = (function() {
       Clustered.addDeliveryPointToTenders();
 
       $("#tender_number").val('CL/'+newDate+'/'+App.makeid(5))
+
+
+      $( ".cluster_quota" ).on( "keydown keyup", function() {
+        var sum = 0;
+        var quota = this.value.split(",").join("");
+        
+        sum += parseFloat(quota);
+        $(".total-in").html(App.formatNumber(sum));
+
+        var bbn_quota = $(".quota").html().split(",").join("");
+        var total_in = $(".total-in").html().split(",").join("");
+        
+      
+        $(".difference").html(App.formatNumber(bbn_quota-total_in));
+       
+        
+        
+        
+        
+       
+      });
+
+     
+
+      /*$(window).on("scroll", function() {
+        var limiter = document.getElementById("choose-delivery-point");
+        var scrollPos = $(window).scrollTop() - 100 ;
+        if (scrollPos < 100) {
+            $(".auto-sum").fadeOut();
+            $(".dashboard-dialog").css("margin-bottom",  0);
+        } else {
+            $(".auto-sum").fadeIn();
+            $(".dashboard-dialog").css("margin-bottom",  $(".auto-sum").height());
+        }
+      });*/
       
   };
 
@@ -394,6 +470,8 @@ const Clustered = (function() {
           }
       });
       $(".total-cluster").html(App.formatNumber(sum));
+
+      
       //$(".difference").html(App.formatNumber(bbn_quota-sum));
     });
 
@@ -406,10 +484,7 @@ const Clustered = (function() {
       if(parseInt(sum) > parseInt(cluster_quota)){
         
         $(this).css("background-color", "red");
-        /*$("#warning-message").html('Nilai yang di input tidak boleh lebih dari Cluster Quota');
-        var myModal = new bootstrap.Modal(document.getElementById('warning-modal'), {})
-        myModal.show()*/
-       // $( '<div id="response" class="alert alert-danger" role="alert">Nilai yang di input tidak boleh lebih dari Cluster Quota</div>').insertBefore( "#choose-delivery-point" );
+        
        $("#response").show(); 
        sum -= (sum - this.value.split(",").join(""));
         return false;
