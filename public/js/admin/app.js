@@ -79,7 +79,7 @@ const App = (function() {
                       <label for="total_allocated" class="form-label">Total allocated</label>
                       <div class="input-group">
                         <input type="text" class="form-control" id="total_allocated" value="`+App.formatNumber(total_alocated)+`"  aria-describedby="button-addon2">
-                        <button class="btn btn-outline-success show-detail" type="button" id="button-addon2">Detail</button>
+                        
                     
                       </div>
                     </div>

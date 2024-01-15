@@ -13,14 +13,8 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-2">
-                <ul class="list-group">
-                    <li class="list-group-item"><a href="{{ url('tenders') }}">Tenders</a></li>
-                    
-                    
-                </ul>
-            </div>
-            <div class="col-10">  
+            
+            <div class="col-12">  
                 <div class="dashboard-dialog">
 
                     <div class="row">

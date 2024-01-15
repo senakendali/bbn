@@ -151,8 +151,18 @@ const Clustered = (function() {
           $("#delivery-point-list tfoot").append(`
                                   <tr>
                                           <td colspan="2">Total</td>
-                                          <td>`+App.formatNumber(total)+`</td>
+                                          <td class="total-all-delivery-point">`+App.formatNumber(total)+`</td>
                                       </tr>`);
+
+          var total_cluster = $(".total-all-cluster").html().split(",").join("");
+          var total_delivery_point = $(".total-all-delivery-point").html().split(",").join("");
+
+          $(".total-in").html(App.formatNumber(parseInt(total_cluster) + parseInt(total_delivery_point)));
+
+          var bbn_quota = $(".quota").html().split(",").join("");
+          var total_in = $(".total-in").html().split(",").join("");
+          $(".difference").html(App.formatNumber(bbn_quota-total_in));
+
         }else{
           $("#delivery-point-list tbody").append('<tr><td colspan="3" class="text-center">There is no data to be displayed.</td></tr>');
         }

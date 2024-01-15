@@ -7,20 +7,14 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#"><a href="#"><img src="{{ asset('images/'.Request::segment(1).'.png') }}" alt="" class="img-fluid"></a></a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Tenders</li>
+                        <li class="breadcrumb-item active" aria-current="page">View Submissions</li>
                     </ol>
                 </nav>
             </div>
         </div>
         <div class="row">
-            <div class="col-2">
-                <ul class="list-group">
-                    <li class="list-group-item"><a href="{{ url('tenders') }}">Tenders</a></li>
-                    <li class="list-group-item main-border-bottom"><a href="{{ url('tenders/view_centralized_submissions/'.Request::segment(3)) }}">View Submissions</a></li>
-                    
-                </ul>
-            </div>
-            <div class="col-10"> 
+           
+            <div class="col-12"> 
                 
                 <input type="hidden" id="method" name="method" value="{{ Session::get('method') }}"/>            
                 <table id="data-detail" class="app-table main-border-bottom">
@@ -43,13 +37,13 @@
                 <table id="participant" class="app-table main-border-bottom mt-2">
                     <thead class="header">
                         <tr>
-                            <td colspan="4">Offered Volume and Price</td>
+                            <td colspan="4">Submissions</td>
                         </tr>
                         <tr>
                             <td>No</td>
                             <td>Vendor</td>
-                            <td>Volume</td>
-                            <td>Price</td>
+                            <td>Offered Volume</td>
+                            <td>Offered Price</td>
                             
                            
                         </tr>

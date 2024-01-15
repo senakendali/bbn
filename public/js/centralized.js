@@ -33,28 +33,32 @@ const Centralized = (function() {
         dataType:"json",
         url: base_url+'/tenders/getCentralizedBid/'+tender_id,
         success: function (response) {
-          let i = 1;
-          
-          $.each(response, function(index, item) {
-            $("#participant tbody").append('<tr class="border-bottom"><td>'+i+'</td><td>'+item.company_name+'</td><td class="text-end">'+App.formatNumber(item.offered_volume)+'</td><td class="text-end">'+App.formatNumber(item.offered_price)+'</td></tr>');
-            total_volume += item.offered_volume;
-            total_price += item.offered_price;
-            i++;
-          })
+          if(response.length > 0){
+            let i = 1;
+            
+            $.each(response, function(index, item) {
+              $("#participant tbody").append('<tr class="border-bottom"><td>'+i+'</td><td>'+item.company_name+'</td><td class="text-end">'+App.formatNumber(item.offered_volume)+'</td><td class="text-end">'+App.formatNumber(item.offered_price)+'</td></tr>');
+              total_volume += item.offered_volume;
+              total_price += item.offered_price;
+              i++;
+            })
 
-          let national_quota = $(".national-quota").html().split(",").join("");
+            let national_quota = $(".national-quota").html().split(",").join("");
 
-          $("#participant tfoot").append(`
-                                <tr>
-                                        <td colspan="2">Total Volume</td>
-                                        <td class="text-end">`+App.formatNumber(total_volume)+`</td>
-                                        <td class="text-end">`+App.formatNumber(total_price)+`</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">Remaining Volume</td>
-                                        <td class="text-end">`+App.formatNumber(national_quota - total_volume)+`</td>
-                                        <td class="text-end">&nbsp;</td>
-                                    </tr>`);
+            $("#participant tfoot").append(`
+                                  <tr>
+                                          <td colspan="2">Total Volume</td>
+                                          <td class="text-end">`+App.formatNumber(total_volume)+`</td>
+                                          <td class="text-end">`+App.formatNumber(total_price)+`</td>
+                                      </tr>
+                                      <tr>
+                                          <td colspan="2">Remaining Volume</td>
+                                          <td class="text-end">`+App.formatNumber(national_quota - total_volume)+`</td>
+                                          <td class="text-end">&nbsp;</td>
+                                      </tr>`);
+          }else{
+            $("#participant tbody").append('<tr><td colspan="4" class="text-center">There is no data to be displayed.</td></tr>');
+          }
         }
       });
     };

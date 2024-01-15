@@ -13,14 +13,8 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-2">
-                <ul class="list-group">
-                    <li class="list-group-item"><a href="{{ url('tenders') }}">Tenders</a></li>
-                    <li class="list-group-item main-border-bottom"><a href="{{ url('tenders/view_submissions/'.Request::segment(3)) }}">View Submissions</a></li>
-                    
-                </ul>
-            </div>
-            <div class="col-10"> 
+           
+            <div class="col-12"> 
                 <div class="d-grid d-md-flex justify-content-md-end shadow-sm p-2 bg-body rounded tool-bar mb-2" style="display:none; ">
                     <form action="{{ url('tenders/publish') }}" method="post">
                         @csrf
@@ -39,6 +33,7 @@
                             <td>Status</td>
                             <td>Year</td>
                             <td>Quota</td>
+                       
                         </tr>
                     </thead>
                     <tbody>    
@@ -48,12 +43,13 @@
                 <table id="delivery-point" class="app-table main-border-bottom mt-2">
                     <thead class="header">
                         <tr>
-                            <td colspan="3">Delivery Point</td>
+                            <td colspan="4">Delivery Point</td>
                         </tr>
                         <tr>
                             <td>No</td>
                             <td>Delivery Point</td>
                             <td>Quota</td>
+                            <td>Action</td>
                         </tr>
                     </thead>
                     <tbody>    

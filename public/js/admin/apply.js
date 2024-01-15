@@ -13,6 +13,8 @@ const Apply = (function() {
         url: base_url+'/tenders/detail/'+tender_id,
         success: function (response) {
           
+            $("#data-detail tbody").empty();
+            
             $("#method").val(response.method);
             $.getScript('/js/admin/app.js', function(jd) {
                       
@@ -20,9 +22,9 @@ const Apply = (function() {
               
             });
             $("#data-detail tbody").append('<tr><td>'+response.tender_number+'</td><td>'+response.method+'</td><td>'+response.currency+'</td><td>'+response.year+'</td><td>'+App.formatNumber(response.bbn_quota)+'</td></tr>');
-            //$("#data-detail").append('<tfoot class="footer"><tr><td colspan="4" class="text-end">Total</td><td>'+App.formatNumber(response.bbn_quota)+'</td></tr></tfoot>');
-            
+
             if(response.method === 'centralized'){
+              $("#delivery-point").remove();
               let is_apply = response.is_join === 'yes' ? '<td class="text-start">'+App.formatNumber(response.detail.offered_volume)+'</td><td class="text-cestartnter">'+App.formatNumber(response.detail.offered_price)+'</td><td>Joined</td>' : '<td><input type="text" id="offered_volume" name="offered_volume" placeholder="" class="form-control number-format"></td><td><input type="text" id="offered_price" name="offered_price" class="form-control number-format" placeholder=""></td><td>&nbsp;</td>';
               let row_class = (response.is_join === 'yes' ? 'joined': '');
               let centralized_form = `

@@ -13,13 +13,10 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-2">
-                <ul class="list-group">
-                    <li class="list-group-item"><a href="{{ url('tenders') }}">Tenders</a></li>
-                    <li class="list-group-item main-border-bottom"><a href="{{ url('tenders/create') }}">Create New Tender</a></li>
-                </ul>
+            <div class="mt-3 mb-2 text-end">
+                <a href="{{ url('tenders/create') }}" class="site-nav-item align-items-center text-decoration-none active-auction">Create New Tender</a>
             </div>
-            <div class="col-10">
+            <div class="col-12">
                 <table id="data-list" class="app-table main-border-bottom">
                     <thead class="header">
                         <tr>

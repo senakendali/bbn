@@ -13,14 +13,17 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-2">
+            <!--div class="col-2">
                 <ul class="list-group">
                     <li class="list-group-item"><a href="{{ url('tenders') }}">Tenders</a></li>
                     <li class="list-group-item main-border-bottom"><a href="{{ url('tenders/view_centralized_submissions/'.Request::segment(3)) }}">View Submissions</a></li>
                     
                 </ul>
+            </div-->
+            <div class="mt-3 mb-2 text-end">
+                <a href="{{ url('tenders/view_centralized_submissions/'.Request::segment(3)) }}" class="site-nav-item align-items-center text-decoration-none active-auction">View Submissions</a>
             </div>
-            <div class="col-10"> 
+            <div class="col-12"> 
                 <div class="d-grid d-md-flex justify-content-md-end shadow-sm p-2 bg-body rounded tool-bar mb-2" style="display:none; ">
                     <form action="{{ url('tenders/publish') }}" method="post">
                         @csrf
